@@ -1,5 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config()
+require("./tasks/block-number")
 // require("@nomiclabs/hardhat-etherscan")
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
@@ -9,7 +10,7 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     bscTestnet: {
-      url: "https://bscrpc.com",
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
       accounts: [PRIVATE_KEY],
       chainId: 97,
     },
