@@ -11,16 +11,46 @@ async function main() {
   const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
   const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
 
-  const lockedAmount = hre.ethers.utils.parseEther("1");
+  // const lockedAmount = hre.ethers.utils.parseEther("1");
 
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  // const Lock = await hre.ethers.getContractFactory("Lock");
+  // const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
 
-  await lock.deployed();
+  // await lock.deployed();
+  const SimpleStorage = await hre.ethers.getContractFactory("SimpleStorage");
+  const simpleStorage = await SimpleStorage.deploy();
+  console.log("====================================");
+  console.log({ simpleStorage });
+  console.log("====================================");
+  await simpleStorage.deployed();
+  const simpleStorageAddTxn = await simpleStorage.addPersonToList("John", 75);
+  await simpleStorageAddTxn.wait();
+  console.log("====================================");
+  console.log({ simpleStorageAddTxn });
+  console.log("====================================");
 
-  console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  const simpleStoragePersonAt0 = await simpleStorage.viewPersonAt(0);
+  console.log("====================================");
+  console.log({ simpleStoragePersonAt0 });
+  console.log("====================================");
+
+  const simpleStorageAddTxn2 = await simpleStorage.addPersonToList("Jane", 20);
+  await simpleStorageAddTxn2.wait();
+  console.log("====================================");
+  console.log({ simpleStorageAddTxn2 });
+  console.log("====================================");
+
+  const simpleStoragePersonAt1 = await simpleStorage.viewPersonAt(1);
+  console.log("====================================");
+  console.log({ simpleStoragePersonAt1 });
+  console.log("====================================");
+  const simpleStoragePersonAt100 = await simpleStorage.viewPersonAt(100);
+  console.log("====================================");
+  console.log({ simpleStoragePersonAt100 });
+  console.log("====================================");
+  // console.log(
+  //   `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+  // );
 }
 
 // We recommend this pattern to be able to use async/await everywhere
