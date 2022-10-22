@@ -1,6 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config()
 require("./tasks/block-number")
+require("hardhat-gas-reporter")
 // require("@nomiclabs/hardhat-etherscan")
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
@@ -15,4 +16,10 @@ module.exports = {
       chainId: 97,
     },
   },
+  gasReporter: {
+    enabled: true,
+    outputFile: "gas-report.txt",
+    noColors: true,
+    currency:"USD"
+  }
 };
